@@ -35,10 +35,10 @@ router.use(get_validated({
       //          the [`validator`](https://github.com/chriso/validator.js)
       //          framework attached.
       if (!container.helpers.isInt(value)) {
-        return done(':name must be an integer, ':value' given');
+        return done(":name must be an integer, ':value' given");
       }
       if (value < 123) {
-        return done(':name must be greater than 123, ':value' given');
+        return done(":name must be greater than 123, ':value' given");
       }
       
       return done(null, container.helpers.toInt(value));
