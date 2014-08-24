@@ -1,4 +1,4 @@
-renderer  = require process.env.PWD + '/lib/renderer'
+renderer  = require __dirname + '/../../lib/renderer'
 
 describe 'G4 Renderer', ->
 

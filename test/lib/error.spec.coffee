@@ -1,5 +1,5 @@
 AssertionError  = require 'assertion-error'
-ValidationError = require process.env.PWD + '/lib/error'
+ValidationError = require __dirname + '/../../lib/error'
 
 describe 'Validation Error', ->
 

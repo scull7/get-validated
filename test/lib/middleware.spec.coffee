@@ -1,1 +1,1 @@
-middleware  = require process.env.PWD + '/lib/middleware'
+middleware  = require __dirname + '/../../lib/middleware'
