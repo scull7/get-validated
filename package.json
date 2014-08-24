@@ -1,0 +1,43 @@
+{
+  "name": "get-validated",
+  "version": "0.0.0",
+  "description": "A simple, flexible validation middleware to make validation less painful.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec"
+  },
+  "keywords": [
+    "validation",
+    "express",
+    "middleware",
+    "validate",
+    "validator"
+  ],
+  "author": "Nathan A Sculli <scull7@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scull7/get-validated.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scull7/get-validated/issues"
+  },
+  "homepage": "https://github.com/scull7/get-validated",
+  "dependencies": {
+    "assertion-error": "^1.0.0",
+    "bluebird": "^2.3.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "codeclimate-test-reporter": "0.0.3",
+    "coffee-script": "^1.7.1",
+    "coveralls": "^2.11.1",
+    "istanbul": "^0.3.0",
+    "mocha": "^1.21.4",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0"
+  }
+}
