@@ -68,11 +68,11 @@ router.route('/').post(function (req, res) {
 options
 -------
 
-`container` - This is your integration point.  Anything you attach here will be
+* `container` - This is your integration point.  Anything you attach here will be
             sent along to your validation functions as the `container` object. 
-`validateAction` - Don't like my validation handling function? Then write your own.
+* `validateAction` - Don't like my validation handling function? Then write your own.
             Debugging is your responsibility.
-`renderer` - `get-validate` comes with a very simple message renderer that recognizes
+* `renderer` - `get-validate` comes with a very simple message renderer that recognizes
             two tags (':name' and ':value'), provide your own function if you like.
 
 todo
