@@ -4,7 +4,7 @@ getter    = require __dirname + '/../../lib/getter'
 handler   = require __dirname + '/../../lib/handler'
 renderer  = require __dirname + '/../../lib/renderer'
 
-describe 'G4 Validate Getter', ->
+describe 'get-validated Validate Getter', ->
   mockReq = null
   mockContainer = null
 

@@ -2,7 +2,7 @@ http      = require 'http'
 Promise   = require 'bluebird'
 handler   = require __dirname + '/../../lib/handler'
 
-describe 'G4 Validate Handler', ->
+describe 'get-validated Validate Handler', ->
   mockContainer = null
   mockReq       = null
 

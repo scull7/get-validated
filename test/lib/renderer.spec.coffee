@@ -1,6 +1,6 @@
 renderer  = require __dirname + '/../../lib/renderer'
 
-describe 'G4 Renderer', ->
+describe 'get-validated Renderer', ->
 
   it 'should be a function an arity of 3', ->
     renderer.should.be.a 'function'
