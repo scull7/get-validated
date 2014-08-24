@@ -60,7 +60,9 @@ router.route('/').post(function (req, res) {
       //do something with the parameters.
       console.log("Param1 = %s", validated.param1);
       console.log("Param2 = %s", validated.param2);
-  });
+  // if you catch the error in this way a 412 error will be propagated
+  // to the client.
+  }).catch(res.json.bind(res));
 });
 
 ```
