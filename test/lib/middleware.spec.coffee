@@ -1,0 +1,1 @@
+middleware  = require process.env.PWD + '/lib/middleware'

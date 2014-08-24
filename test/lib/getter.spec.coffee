@@ -1,0 +1,1 @@
+getter = require process.env.PWD + '/lib/getter'
