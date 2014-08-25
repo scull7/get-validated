@@ -103,6 +103,7 @@ router.route('/').post([
     console.log("Param2 = %s", req.validated.param2);
   }
 ]);
+```
 
 options
 -------
