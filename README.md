@@ -96,7 +96,7 @@ router.route('/').post(function (req, res, next) {
 ```javascript
 
 router.route('/').post([
-  validations(['param1', 'param2']),
+  validations.validate(['param1', 'param2']),
   function (req, res) {
     //do something with the parameters.
     console.log("Param1 = %s", req.validated.param1);
