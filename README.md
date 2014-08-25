@@ -20,8 +20,8 @@ All validation errors are combined and put into a single `ValidationError` objec
 with a status|code of 412.  And the `messages` property is set to an object keyed
 by parameter name of the current errors.
 
-Usage
------
+Basic Usage
+-----------
 Initial set up for a our little example express app.
 
 ```javascript
@@ -102,6 +102,77 @@ router.route('/').post([
     console.log("Param1 = %s", req.validated.param1);
     console.log("Param2 = %s", req.validated.param2);
   }
+]);
+```
+
+Advanced Usage
+--------------
+Now one of the fun parts of this module is that you can integrate pretty much any validations framework that you want
+with it.  Here is a list of some:
+
+* [Composed Validations] (https://github.com/composed-validations/composed-validations)
+* [Joi] (https://github.com/hapijs/joi)
+* [validate-it] (https://github.com/vlkosinov/validate-it)
+
+I'm going to use [Composed Validations] (https://github.com/composed-validations/composed-validations) here to show
+how you integrate a validation libray, at least one way to do it.
+
+In Composed Validations examples they show an address validator, so let's work with that.  
+
+```javascript
+
+var cv = require('composed-validations');
+
+var addressValidator = cv.struct()
+    .validate('street', cv.presence())
+    .validate('zip', cv.format(/\d{5}/) // silly zip format
+    .validate('city', cv.presence()
+    .validate('state', cv.presence();
+```
+
+So now that we have our address validator we can integrate it directly into our validations object like so
+
+```javascript
+var options = {
+    container: {
+        'cv': cv,  // we don't have to integrate but just for fun we will.
+        'addressValidator': addressValidator
+    }
+};
+
+var validations = get_validated({
+    'address': function (value, container, done) {
+        // we're going to ignore the value here because we have a complex type,
+        // but we'll get our reference to request to pull the values from there.
+        var req = container.req;
+        
+        var address = {
+            street: req.param('street'),
+            zip: req.param('zip'),
+            city: req.param('city'),
+            state: req.param('state')
+        };
+        // and there we go, we don't have to worry about the error at this point
+        // because the validation handler will receive the thrown execption and 
+        // turn it into a ValidationError appropriately.
+        container.addressValidator.test(address);
+        
+        //but we do have to send our fancy validated address down to the user function.
+        return done(null, address);
+    }
+});
+```
+
+After we have our validations object we can use it just like any other one.
+
+```javascript
+router.route('/').post([
+    validations.validate('address'),
+    function (req, res, next) {
+        // And our address information will be conveniently placed into the validated object.
+        console.log ("Address: %j", req.validated.address);
+        // do other stuff...
+    }
 ]);
 ```
 
