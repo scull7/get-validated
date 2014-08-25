@@ -14,18 +14,30 @@ middleware that allows you to integrate many validation frameworks into your
 express app in a consistent manner.
 
 It comes with the [validator](https://github.com/chriso/validator.js) framework
-built in.
+built in. 
+
+All validation errors are combined and put into a single `ValidationError` object
+with a status|code of 412.  And the `messages` property is set to an object keyed
+by parameter name of the current errors.
 
 Usage
 -----
+Initial set up for a our little example express app.
 
 ```javascript
 var express = require('express'),
     router  = express.Router(),
-    get_validated = require('get-validated')
+    get_validated = require('get-validated'),
+    validations
 ;
+```
 
-router.use(get_validated({
+Once we have our express app all set then we create our 
+validations object.
+
+```javascript
+
+validations = get_validated({
   'param1': function (value, container, done) {
       // perform validation here.
       // `value` will be the return from req.param('param1')
@@ -54,6 +66,16 @@ router.use(get_validated({
       }
   }
 });
+```
+
+Now that we have our `validations` object we can use it in a few different
+ways.  
+
+1. Apply it to the route and then use `req.getValidated` within individual 
+  route handlers.
+
+```javascript
+router.use(validations);
 
 router.route('/').post(function (req, res, next) {
   req.getValidated(['param1','param2']).then(function (validated) {
@@ -66,6 +88,21 @@ router.route('/').post(function (req, res, next) {
 });
 
 ```
+
+2. Use it as route specific middleware to validate parameters used by
+  that route. ***Note:*** If you use this method then all errors are sent
+  to `next(err)` to be handled by your app's current error handler.
+  
+```javascript
+
+router.route('/').post([
+  validations(['param1', 'param2']),
+  function (req, res) {
+    //do something with the parameters.
+    console.log("Param1 = %s", req.validated.param1);
+    console.log("Param2 = %s", req.validated.param2);
+  }
+]);
 
 options
 -------
