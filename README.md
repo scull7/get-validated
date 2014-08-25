@@ -58,9 +58,9 @@ validations = get_validated({
   'param2': function (value, container, done) {
       // you will have access to the current request via
       // `container.req`
-      // You can do async things!
       var req = container.req;
       
+      // You can do async things!
       req.db.query('SELECT * FROM something where id = ?', [value],
         function (err, rows) {
           // ... do some validation here...
