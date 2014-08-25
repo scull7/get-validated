@@ -188,6 +188,5 @@ options
 
 todo
 ----
-* Make the handler catch errors from those frameworks that throw errors.
 * route specific middleware
 * more usage examples showing how to use the joi and composed-validations

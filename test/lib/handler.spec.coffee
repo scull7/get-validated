@@ -61,3 +61,25 @@ describe 'get-validated Validate Handler', ->
     test('testSanitized', testHandler).then (result) ->
       result.value.should.equal 'sanitized'
       done()
+
+  it 'should set an error if an error is thrown in the handler', (done) ->
+    test  = handler(mockReq, mockContainer)
+
+    testHandler = (val, container, cb) ->
+      throw new Error("Bad Things")
+
+    test('testException', testHandler).then (result) ->
+      result.value.should.equal 'testException'
+      result.error.should.equal 'Bad Things'
+      done()
+
+  it 'should call toString on an error object that does not have a message property', (done) ->
+    test = handler(mockReq, mockContainer)
+
+    testHandler = (val, container, cb) ->
+      throw new Error()
+
+    test('testExceptionNoMessage', testHandler).then (result) ->
+      result.value.should.equal 'testExceptionNoMessage'
+      result.error.should.equal 'Error'
+      done()
