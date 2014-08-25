@@ -160,7 +160,7 @@ var validations = get_validated({
         //but we do have to send our fancy validated address down to the user function.
         return done(null, address);
     }
-});
+}, options);
 ```
 
 After we have our validations object we can use it just like any other one.
